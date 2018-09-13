@@ -1,0 +1,46 @@
+{
+  "_from": "cz.blocshop.socketsforcordova",
+  "_id": "cz.blocshop.socketsforcordova@1.1.0",
+  "_inBundle": false,
+  "_integrity": "sha1-rO39zYL2ZYvea3fEUIP5liOnbmc=",
+  "_location": "/cz.blocshop.socketsforcordova",
+  "_phantomChildren": {},
+  "_requested": {
+    "type": "tag",
+    "registry": true,
+    "raw": "cz.blocshop.socketsforcordova",
+    "name": "cz.blocshop.socketsforcordova",
+    "escapedName": "cz.blocshop.socketsforcordova",
+    "rawSpec": "",
+    "saveSpec": null,
+    "fetchSpec": "latest"
+  },
+  "_requiredBy": [
+    "#USER",
+    "/"
+  ],
+  "_resolved": "https://registry.npmjs.org/cz.blocshop.socketsforcordova/-/cz.blocshop.socketsforcordova-1.1.0.tgz",
+  "_shasum": "acedfdcd82f6658bde6b77c45083f99623a76e67",
+  "_spec": "cz.blocshop.socketsforcordova",
+  "_where": "C:\\Users\\Julien\\test",
+  "bundleDependencies": false,
+  "cordova_name": "SocketsForCordova",
+  "deprecated": false,
+  "description": "\r\n\t\tThis Cordova plugin provides JavaScript API, that allows you to communicate with server through TCP protocol.\r\n\t\tCurrently we support these platforms: iOS, Android, WP8.\r\n\t",
+  "engines": [],
+  "keywords": [
+    "socket",
+    "sockets",
+    "network",
+    "tcp",
+    "cordova"
+  ],
+  "license": "Apache 2.0",
+  "name": "cz.blocshop.socketsforcordova",
+  "platforms": [
+    "android",
+    "ios",
+    "wp8"
+  ],
+  "version": "1.1.0"
+}

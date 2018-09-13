@@ -1,26 +1,43 @@
 var people = [];
 class person {
 
-  /*constructor(name) {
+  constructor(name) {
     this.name = name;
     this.id = (10000 + Math.random() * 9000) +
       name;
     this.rank = people.length;
-  }*/
-  constructor(lastname) {
-    this.name = lastname;
+  }
+  /*constructor(firstName, lastName) {
+    this.firstName = lastname;
+    this.lastName = lastName;
     this.id = (420 + Math.random() * 4000) +
       lastname;
     this.rank = people.length;
+  }*/
+
+
+  sendDataToDatabase() {
+
+
   }
-  startTimer(min, sec) {
+}
+
+function update() {
+  for (let i = 0; i < people.length; i++) {
+    let p = people[i];
+    if (p.rank > 0)
+      p.rank--;
+    let ul = document.getElementById(p.id + "_list");
+
+    ul.innerHTML = p.rank;
+
 
   }
 }
 
 add("Person 1");
-add("Person 2")
-add("Person 3")
+add("Person 2");
+add("Person 3");
 add(localStorage.name);
 
 
@@ -30,7 +47,6 @@ add(localStorage.name);
 function getSectionId(element) {
   return element.split("_")[0];
 }
-
 
 function countdown(element, min, sec) {
   var timer = document.getElementById(element);
@@ -94,6 +110,7 @@ function start(name) {
 function removePerson(name) {
   let element = document.getElementById(name + "_list");
   element.parentNode.removeChild(element);
+  update();
 }
 
 function add(name) {

@@ -63,7 +63,17 @@ function countdown(element, min, sec) {
 
 }
 
+function update() {
 
+  for (i = 0; i < people.length; i++) {
+    let p = people[i];
+
+    var h3 = document.getElementById(p.id + "_name"); // Create a <p> node
+
+    h3.innerHTML = ((p.rank+1)+" " + p.name + " ");
+
+  }
+}
 function swap(v1, v2) {
   let e = document.getElementById("list");
   let e1 = document.getElementById(v1.id + "_list");
@@ -84,17 +94,39 @@ function swap(v1, v2) {
 
   v1.rank = v2.rank;
   v2.rank = temp;
+  update();
 }
 
 function start(name) {
   countdown(name + "_timer", 20, 0)
 }
 
-function removePerson(name) {
-  let element = document.getElementById(name + "_list");
-  element.parentNode.removeChild(element);
-}
+function removePerson(person) {
+  let element = document.getElementById(person.id + "_list");
 
+
+  element.parentNode.removeChild(element);
+
+
+removeA(people, person);
+
+
+  for(let i = 0; i < people.length; i++){
+    let p = people[i];
+    if(p.rank > person.rank) people[i].rank --;
+  }
+update();
+}
+function removeA(arr) {
+    var what, a = arguments, L = a.length, ax;
+    while (L > 1 && arr.length) {
+        what = a[--L];
+        while ((ax= arr.indexOf(what)) !== -1) {
+            arr.splice(ax, 1);
+        }
+    }
+    return arr;
+}
 function add(name) {
   person.people++;
   if (name.indexOf("_") != -1)
@@ -126,7 +158,7 @@ function add(name) {
   var b3 = document.createElement("button");
   b3.id = p.id + "_remove";
   b3.onclick = function() {
-    removePerson(p.id);
+    removePerson(p);
   };
   var remove = document.createAttribute("class"); // Create a "class" attribut
 
@@ -134,7 +166,7 @@ function add(name) {
   b1.appendChild(document.createTextNode("Start"));
   b2.appendChild(document.createTextNode("Move-up"));
   b3.appendChild(document.createTextNode("remove"));
-  h3.appendChild(document.createTextNode(name + " "));
+  h3.appendChild(document.createTextNode((p.rank +1)+" " +name + " "));
 
 
   // Create a text node
