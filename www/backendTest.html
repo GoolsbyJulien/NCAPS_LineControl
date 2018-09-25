@@ -9,35 +9,18 @@
 <body>
 
   <script type="text/javascript">
-    var socket = new Socket();
+    function play() {
+      let sound = new Audio("sound.wav");
 
-    socket.onData = function(data) {
-      // invoked after new batch of data is received (typed array of bytes Uint8Array)
-    };
-    socket.onError = function(errorMessage) {
-      // invoked after error occurs during connection
-    };
-    socket.onClose = function(hasError) {
-      // invoked after connection close
-    };
-    socket.open(
-      "localhost",
-      1234,
-      function() {
-        // invoked after successful opening of socket
-      },
-      function(errorMessage) {
-        // invoked after unsuccessful opening of socket
-      });
-    var dataString = "Hello world";
-    var data = new Uint8Array(dataString.length);
-    for (var i = 0; i < data.length; i++) {
-      data[i] = dataString.charCodeAt(i);
+      setInterval(function() {
+        sound.play();
+
+      }, 1000);
     }
-    socket.write(data);
   </script>
-  <button type="button" name="button">
+  <button type="button" name="button" onclick="play()">
+    Play sound
     </button>
 </body>
 
-</html>
+</html>x

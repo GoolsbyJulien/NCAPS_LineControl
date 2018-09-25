@@ -13,9 +13,6 @@ class person {
       lastname;
     this.rank = people.length;
   }
-  startTimer(min, sec) {
-
-  }
 }
 
 add("Person 1");
@@ -70,10 +67,11 @@ function update() {
 
     var h3 = document.getElementById(p.id + "_name"); // Create a <p> node
 
-    h3.innerHTML = ((p.rank+1)+" " + p.name + " ");
+    h3.innerHTML = ((p.rank + 1) + " " + p.name + " ");
 
   }
 }
+
 function swap(v1, v2) {
   let e = document.getElementById("list");
   let e1 = document.getElementById(v1.id + "_list");
@@ -108,25 +106,29 @@ function removePerson(person) {
   element.parentNode.removeChild(element);
 
 
-removeA(people, person);
+  removeA(people, person);
 
 
-  for(let i = 0; i < people.length; i++){
+  for (let i = 0; i < people.length; i++) {
     let p = people[i];
-    if(p.rank > person.rank) people[i].rank --;
+    if (p.rank > person.rank) people[i].rank--;
   }
-update();
+  update();
 }
+
 function removeA(arr) {
-    var what, a = arguments, L = a.length, ax;
-    while (L > 1 && arr.length) {
-        what = a[--L];
-        while ((ax= arr.indexOf(what)) !== -1) {
-            arr.splice(ax, 1);
-        }
+  var what, a = arguments,
+    L = a.length,
+    ax;
+  while (L > 1 && arr.length) {
+    what = a[--L];
+    while ((ax = arr.indexOf(what)) !== -1) {
+      arr.splice(ax, 1);
     }
-    return arr;
+  }
+  return arr;
 }
+
 function add(name) {
   person.people++;
   if (name.indexOf("_") != -1)
@@ -166,7 +168,7 @@ function add(name) {
   b1.appendChild(document.createTextNode("Start"));
   b2.appendChild(document.createTextNode("Move-up"));
   b3.appendChild(document.createTextNode("remove"));
-  h3.appendChild(document.createTextNode((p.rank +1)+" " +name + " "));
+  h3.appendChild(document.createTextNode((p.rank + 1) + " " + name + " "));
 
 
   // Create a text node
