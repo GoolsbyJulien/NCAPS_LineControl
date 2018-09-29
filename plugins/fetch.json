@@ -10,7 +10,7 @@
   "cz.blocshop.socketsforcordova": {
     "source": {
       "type": "registry",
-      "id": "cz.blocshop.socketsforcordova"
+      "id": "cz.blocshop.socketsforcordova@^1.1.0"
     },
     "is_top_level": true,
     "variables": {}

@@ -1,44 +1,25 @@
 var people = [];
 class person {
 
-  constructor(name) {
+  /*constructor(name) {
     this.name = name;
     this.id = (10000 + Math.random() * 9000) +
       name;
     this.rank = people.length;
-  }
-  /*constructor(firstName, lastName) {
-    this.firstName = lastname;
-    this.lastName = lastName;
+  }*/
+  constructor(lastname) {
+    this.name = lastname;
     this.id = (420 + Math.random() * 4000) +
       lastname;
     this.rank = people.length;
-  }*/
-
-
-  sendDataToDatabase() {
-
-
-  }
-}
-
-function update() {
-  for (let i = 0; i < people.length; i++) {
-    let p = people[i];
-    if (p.rank > 0)
-      p.rank--;
-    let ul = document.getElementById(p.id + "_list");
-
-    ul.innerHTML = p.rank;
-
-
   }
 }
 
 add("Person 1");
 add("Person 2");
 add("Person 3");
-add(localStorage.name);
+for (let i = 0; i < localStorage.name.length; i++)
+  add(localStorage.name[i]);
 
 
 
@@ -58,6 +39,11 @@ function countdown(element, min, sec) {
       if (min == 0) {
         clearInterval(interval);
         timer.innerHTML = "EXPIRED";
+
+        if (min == 5) {
+
+          alert("Five min warning");
+        }
       } else {
         min--;
 
@@ -80,6 +66,17 @@ function countdown(element, min, sec) {
 
 }
 
+function update() {
+
+  for (i = 0; i < people.length; i++) {
+    let p = people[i];
+
+    var h3 = document.getElementById(p.id + "_name"); // Create a <p> node
+
+    h3.innerHTML = ((p.rank + 1) + " " + p.name + " ");
+
+  }
+}
 
 function swap(v1, v2) {
   let e = document.getElementById("list");
@@ -101,16 +98,41 @@ function swap(v1, v2) {
 
   v1.rank = v2.rank;
   v2.rank = temp;
+  update();
 }
 
 function start(name) {
   countdown(name + "_timer", 20, 0)
 }
 
-function removePerson(name) {
-  let element = document.getElementById(name + "_list");
+function removePerson(person) {
+  let element = document.getElementById(person.id + "_list");
+
+
   element.parentNode.removeChild(element);
+
+
+  removeA(people, person);
+
+
+  for (let i = 0; i < people.length; i++) {
+    let p = people[i];
+    if (p.rank > person.rank) people[i].rank--;
+  }
   update();
+}
+
+function removeA(arr) {
+  var what, a = arguments,
+    L = a.length,
+    ax;
+  while (L > 1 && arr.length) {
+    what = a[--L];
+    while ((ax = arr.indexOf(what)) !== -1) {
+      arr.splice(ax, 1);
+    }
+  }
+  return arr;
 }
 
 function add(name) {
@@ -144,7 +166,7 @@ function add(name) {
   var b3 = document.createElement("button");
   b3.id = p.id + "_remove";
   b3.onclick = function() {
-    removePerson(p.id);
+    removePerson(p);
   };
   var remove = document.createAttribute("class"); // Create a "class" attribut
 
@@ -152,7 +174,7 @@ function add(name) {
   b1.appendChild(document.createTextNode("Start"));
   b2.appendChild(document.createTextNode("Move-up"));
   b3.appendChild(document.createTextNode("remove"));
-  h3.appendChild(document.createTextNode(name + " "));
+  h3.appendChild(document.createTextNode((p.rank + 1) + " " + name + " "));
 
 
   // Create a text node

@@ -37,20 +37,26 @@
 </head>
 <script type="text/javascript" src="cordova.js"></script>
 <script type="text/javascript" src="js/admin.js"></script>
-
+<script src="..\plugins\cz.blocshop.socketsforcordova\socket.js">
+</script>
 <script type="text/javascript" src="js/index.js"></script>
 
 <body>
 
   <div class="app" style="">
     <img src="../img/logo.jpg" alt="">
-
     <h1> Sign in</h2>
+      <label>Firstname:</label>
     <input class = "input" id = "sign" type="text">
-    <button  onclick=" go();"> Go
+    <label>Lastname:</label>
+
+      <input type="text">
+    <button style="width: 100%; padding-left 10px; padding-right 10px; margin-top: 10px;" onclick=" add();"> Go
+    <button onclick=""type="button" name="button">Admin</button>
+
 </button>
 
-
+</div>
 </body>
 
 </html>

@@ -18,7 +18,8 @@ class person {
 add("Person 1");
 add("Person 2");
 add("Person 3");
-add(localStorage.name);
+for (let i = 0; i < localStorage.name.length; i++)
+  add(localStorage.name[i]);
 
 
 
@@ -38,6 +39,11 @@ function countdown(element, min, sec) {
       if (min == 0) {
         clearInterval(interval);
         timer.innerHTML = "EXPIRED";
+
+        if (min == 5) {
+
+          alert("Five min warning");
+        }
       } else {
         min--;
 
