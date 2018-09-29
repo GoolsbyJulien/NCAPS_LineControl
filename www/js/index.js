@@ -3,6 +3,11 @@ var names = [];
 if (JSON.parse(localStorage.getItem("names")) != null) {
   names = JSON.parse(localStorage.getItem("names"))
 }
+
+function clearInputs() {
+  document.getElementById("sign").value = "";
+  document.getElementById("signLastname").value = "";
+}
 document.addEventListener('deviceready', function() {
   socket = new Socket();
   socket.open(
@@ -10,7 +15,7 @@ document.addEventListener('deviceready', function() {
     5000,
     function() {
 
-      alert("connection worked");
+      alert("connection Successful!!");
     },
     function(errorMessage) {
       alert("connection Failed");
@@ -73,19 +78,37 @@ function Utf8ArrayToStr(array) {
 
 function go() {
   //send to other app
+  localStorage.setItem("names", JSON.stringify(names));
 
   window.location = "admin.html";
-  localStorage.name.push(document.getElementById('sign').value);
+  //localStorage.name.push(document.getElementById('sign').value);
 
 }
 
-function add() {
+
+
+function send() {
+  if (!String(document.getElementById('sign').value)) {
+
+    alert("Please enter Firstname");
+    return;
+  }
+  if (!String(document.getElementById('signLastname').value)) {
+
+    alert("Please enter Lastname");
+    return;
+  }
+
+
+
+  names.push(document.getElementById('sign').value);
   var dataString = document.getElementById('sign').value;
   var data = new Uint8Array(dataString.length);
   for (var i = 0; i < data.length; i++) {
     data[i] = dataString.charCodeAt(i);
   }
-  socket.write(data);
+  if (socket)
+    socket.write(data);
   alert(String(document.getElementById('sign').value));
-
+  clearInputs();
 }

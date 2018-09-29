@@ -10,12 +10,11 @@ net.createServer(function(socket) {
   // Identify this client
   socket.name = socket.remoteAddress + ":" + socket.remotePort
 
-  // Put this new client in the list
+
   clients.push(socket);
 
-  // Send a nice welcome message and announce
-  socket.write("Welcome " + socket.name + "\n");
-  broadcast(socket.name + " joined the chat\n", socket);
+
+  broadcast(socket.name + " joined the server\n", socket);
 
   // Handle incoming messages from clients.
   socket.on('data', function(data) {
@@ -33,19 +32,20 @@ net.createServer(function(socket) {
   function broadcast(message, sender) {
     clients.forEach(function(client) {
       // Don't want to send it to sender
+      if (client === sender) return;
       people.forEach(function(person) {
         client.write(message);
-        console.log(message);
+        broadcast(message);
       });
 
 
 
     });
     // Log it to the server output too
-    process.stdout.write(message)
+    process.stdout.write(message + "\n")
   }
 
 }).listen(5000);
 
 // Put a friendly message on the terminal of the server.
-console.log("Chat server running at port 5000\n");
+console.log("Faith Hope server running at port 5000\n");

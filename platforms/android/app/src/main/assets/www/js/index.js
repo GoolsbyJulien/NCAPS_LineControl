@@ -3,6 +3,11 @@ var names = [];
 if (JSON.parse(localStorage.getItem("names")) != null) {
   names = JSON.parse(localStorage.getItem("names"))
 }
+
+function clearInputs() {
+  document.getElementById("sign").value = "";
+  document.getElementById("signLastname").value = "";
+}
 document.addEventListener('deviceready', function() {
   socket = new Socket();
   socket.open(
@@ -10,7 +15,7 @@ document.addEventListener('deviceready', function() {
     5000,
     function() {
 
-      alert("connection worked");
+      alert("connection Successful!!");
     },
     function(errorMessage) {
       alert("connection Failed");
@@ -80,6 +85,8 @@ function go() {
 }
 
 function add() {
+
+
   var dataString = document.getElementById('sign').value;
   var data = new Uint8Array(dataString.length);
   for (var i = 0; i < data.length; i++) {
@@ -87,5 +94,5 @@ function add() {
   }
   socket.write(data);
   alert(String(document.getElementById('sign').value));
-
+  clearInputs();
 }

@@ -1,4 +1,4 @@
-#Fri Sep 28 20:12:31 CDT 2018
+#Sat Sep 29 08:49:39 CDT 2018
 base.0=C\:\\Users\\Julien\\test\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0
 renamed.0=classes.dex
 file.0=C\:\\Users\\Julien\\test\\platforms\\android\\app\\build\\intermediates\\transforms\\dexMerger\\debug\\0\\classes.dex
