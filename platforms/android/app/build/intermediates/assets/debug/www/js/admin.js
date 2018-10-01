@@ -18,8 +18,10 @@ class person {
 add("Person 1");
 add("Person 2");
 add("Person 3");
-for (let i = 0; i < localStorage.name.length; i++)
-  add(localStorage.name[i]);
+let passedName = JSON.parse(localStorage.getItem("names"));
+
+for (let i = 0; i < passedName.length; i++)
+  add(passedName[i]);
 
 
 

@@ -6,7 +6,11 @@ var people = [];
 
 // Start a TCP Server
 net.createServer(function(socket) {
+  clients.forEach(function(client) {
 
+    if (client == socket)
+      return;
+  });
   // Identify this client
   socket.name = socket.remoteAddress + ":" + socket.remotePort
 

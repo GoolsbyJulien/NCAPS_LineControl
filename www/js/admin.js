@@ -33,39 +33,52 @@ function getSectionId(element) {
 
 function countdown(element, min, sec) {
   var timer = document.getElementById(element);
+  let inq = 0;
+  for (let i = 0; people.length; i++) {
+    if (people[i].id == getSectionId(element)) {
+      inq = i;
+      break;
+    }
+  }
+  console.log(inq);
+  if (people[inq].interval == null) {
 
-  let interval = setInterval(function() {
+    let interval = setInterval(function() {
 
-    sec--;
-    if (sec <= 0) {
-      if (min == 0) {
-        clearInterval(interval);
-        timer.innerHTML = "EXPIRED";
-
+      sec--;
+      if (sec <= 0) {
         if (min == 5) {
 
           alert("Five min warning");
         }
-      } else {
-        min--;
 
-        sec = 59;
+        if (min == 0) {
+          clearInterval(interval);
+          people[inq].interval = null;
+          timer.innerHTML = "EXPIRED";
+
+        } else {
+          min--;
+
+          sec = 59;
+        }
+
       }
+      let secTemp = sec;
 
-    }
-    let secTemp = sec;
+      if (sec < 10) {
+        secTemp = '0' + sec; // adds a 0 when its less than 10
 
-    if (sec < 10) {
-      secTemp = '0' + sec; // adds a 0 when its less than 10
-
-    }
-    if (min > 1 || sec > 0)
-      timer.innerHTML = min + ":" + sec;
+      }
+      if (min > 1 || sec > 0)
+        timer.innerHTML = min + ":" + secTemp;
 
 
 
-  }, 1000);
+    }, 1000);
 
+    people[inq].interval = interval;
+  }
 }
 
 function update() {

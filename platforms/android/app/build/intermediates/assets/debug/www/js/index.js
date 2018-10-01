@@ -1,5 +1,6 @@
 var socket;
 var names = [];
+localStorage.clear();
 if (JSON.parse(localStorage.getItem("names")) != null) {
   names = JSON.parse(localStorage.getItem("names"))
 }
@@ -8,32 +9,40 @@ function clearInputs() {
   document.getElementById("sign").value = "";
   document.getElementById("signLastname").value = "";
 }
+let connection = false;
 document.addEventListener('deviceready', function() {
   socket = new Socket();
-  socket.open(
-    "192.168.1.105",
-    5000,
-    function() {
 
-      alert("connection Successful!!");
-    },
-    function(errorMessage) {
-      alert("connection Failed");
-    });
-  socket.onData = function(data) {
-    // invoked after new batch of data is received (typed array of bytes Uint8Array)
-    var data = new Uint8Array
-    names.push((Utf8ArrayToStr(data)));
-    alert(names);
+  if (localStorage.connected == null) {
 
-  };
-  socket.onError = function(errorMessage) {
-    alert(errorMessage);
-  };
-  socket.onClose = function(hasError) {
-    // invoked after connection close
-  };
+    socket.open(
+      "192.168.1.105",
+      5000,
+      function() {
+        alert("connection Successful!!");
+      },
+      function(errorMessage) {
+        alert("connection Failed");
+      });
+    socket.onData = function(data) {
+      // invoked after new batch of data is received (typed array of bytes Uint8Array)
+      var data = new Uint8Array
+      names.push((Utf8ArrayToStr(data)));
+      alert(names);
+
+    };
+    socket.onError = function(errorMessage) {
+      alert(errorMessage);
+    };
+    socket.onClose = function(hasError) {
+      // invoked after connection close
+      localStorage.connected = null;
+    };
+  } else
+    alert("connection open");
+
 });
+
 
 function Utf8ArrayToStr(array) {
   var out, i, len, c;
@@ -78,21 +87,37 @@ function Utf8ArrayToStr(array) {
 
 function go() {
   //send to other app
+  localStorage.setItem("names", JSON.stringify(names));
 
   window.location = "admin.html";
-  localStorage.name.push(document.getElementById('sign').value);
+  //localStorage.name.push(document.getElementById('sign').value);
 
 }
 
-function add() {
 
 
+function send() {
+  if (!String(document.getElementById('sign').value)) {
+
+    alert("Please enter Firstname");
+    return;
+  }
+  if (!String(document.getElementById('signLastname').value)) {
+
+    alert("Please enter Lastname");
+    return;
+  }
+
+
+
+  names.push(document.getElementById('sign').value);
   var dataString = document.getElementById('sign').value;
   var data = new Uint8Array(dataString.length);
   for (var i = 0; i < data.length; i++) {
     data[i] = dataString.charCodeAt(i);
   }
-  socket.write(data);
+  if (socket)
+    socket.write(data);
   alert(String(document.getElementById('sign').value));
   clearInputs();
 }
