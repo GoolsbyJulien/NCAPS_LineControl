@@ -16,7 +16,7 @@ document.addEventListener('deviceready', function() {
   if (localStorage.connected == null) {
 
     socket.open(
-      "192.168.1.105",
+      " 192.168.9.113",
       5000,
       function() {
         alert("connection Successful!!");

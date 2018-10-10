@@ -16,7 +16,7 @@ document.addEventListener('deviceready', function() {
   if (localStorage.connected == null) {
 
     socket.open(
-      "192.168.1.105",
+      " 192.168.9.113",
       5000,
       function() {
         alert("connection Successful!!");
@@ -118,6 +118,7 @@ function send() {
   }
   if (socket)
     socket.write(data);
-  alert(String(document.getElementById('sign').value));
+  //alert(String(document.getElementById('sign').value));
+  alert("Thank You, You are now logged in.");
   clearInputs();
 }

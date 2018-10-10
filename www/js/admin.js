@@ -55,6 +55,9 @@ function countdown(element, min, sec) {
         if (min == 0) {
           clearInterval(interval);
           people[inq].interval = null;
+          let sound = new Audio("cuckoo-clock.mp3");
+
+          sound.play();
           timer.innerHTML = "EXPIRED";
 
         } else {
@@ -117,7 +120,7 @@ function swap(v1, v2) {
 }
 
 function start(name) {
-  countdown(name + "_timer", 20, 0)
+  countdown(name + "_timer", 0, 5)
 }
 
 function removePerson(person) {

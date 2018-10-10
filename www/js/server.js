@@ -14,6 +14,8 @@ net.createServer(function(socket) {
 
 
       return;
+
+      //ball.bounce(fast);
     }
   }
 
