@@ -120,7 +120,7 @@ function swap(v1, v2) {
 }
 
 function start(name) {
-  countdown(name + "_timer", 0, 5)
+  countdown(name + "_timer", 20, 0)
 }
 
 function removePerson(person) {
@@ -211,5 +211,27 @@ function add(name) {
   ul.appendChild(li);
   li.setAttributeNode(att);
   b3.setAttributeNode(remove);
+
+
+}
+
+function toggleScreen() {
+  console.log(document.getElementById("select").value);
+  if (document.getElementById("select").value == "Stats") {
+    showTab2();
+  } else {
+    showTab1();
+  }
+}
+
+function showTab1() {
+  document.getElementById("tab1").className = "shown";
+  document.getElementById("tab2").className = "hidden";
+
+}
+
+function showTab2() {
+  document.getElementById("tab2").className = "shown";
+  document.getElementById("tab1").className = "hidden";
 
 }
