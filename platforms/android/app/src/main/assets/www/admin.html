@@ -38,9 +38,21 @@
 
 <body>
 
-  <ul id="list">
+  <select id="select" onchange="toggleScreen()">
+  <option value="People">People</option>
+  <option value="Stats">Stats</option>
+</select>
+  <div id="tab1" class="shown">
+    <ul id="list">
 
-  </ul>
+    </ul>
+  </div>
+  <div id="tab2" class="hidden">
+    <h1> Total Showers today: 5</h1>
+    <h1> Total Showers this Month: 10</h1>
+
+  </div>
+
 
 </body>
 <script src=" js/admin.js ">

@@ -55,6 +55,9 @@ function countdown(element, min, sec) {
         if (min == 0) {
           clearInterval(interval);
           people[inq].interval = null;
+          let sound = new Audio("cuckoo-clock.mp3");
+
+          sound.play();
           timer.innerHTML = "EXPIRED";
 
         } else {
@@ -208,5 +211,27 @@ function add(name) {
   ul.appendChild(li);
   li.setAttributeNode(att);
   b3.setAttributeNode(remove);
+
+
+}
+
+function toggleScreen() {
+  console.log(document.getElementById("select").value);
+  if (document.getElementById("select").value == "Stats") {
+    showTab2();
+  } else {
+    showTab1();
+  }
+}
+
+function showTab1() {
+  document.getElementById("tab1").className = "shown";
+  document.getElementById("tab2").className = "hidden";
+
+}
+
+function showTab2() {
+  document.getElementById("tab2").className = "shown";
+  document.getElementById("tab1").className = "hidden";
 
 }

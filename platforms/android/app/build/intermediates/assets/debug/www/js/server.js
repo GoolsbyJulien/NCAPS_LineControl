@@ -14,6 +14,8 @@ net.createServer(function(socket) {
 
 
       return;
+
+      //ball.bounce(fast);
     }
   }
 
@@ -25,10 +27,13 @@ net.createServer(function(socket) {
 
 
   broadcast(socket.name + " joined the server. " + clients.length + " in the server \n ", socket);
+  socket.write(JSON.stringify(people));
 
   // Handle incoming messages from clients.
   socket.on('data', function(data) {
-    people.push(data);
+    people.push(data.toString());
+    console.log(people);
+    socket.write(JSON.stringify(people));
     broadcast(socket.name + "> " + data, socket);
   });
   process.on('uncaughtException', function(err) {
@@ -58,5 +63,8 @@ net.createServer(function(socket) {
 
 }).listen(port);
 
+function updateArrayOnClients() {
+
+}
 // Put a friendly message on the terminal of the server.
 console.log("Faith Hope server running at port: " + port + "\n");

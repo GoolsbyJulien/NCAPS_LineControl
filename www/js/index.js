@@ -11,78 +11,73 @@ function clearInputs() {
 }
 let connection = false;
 document.addEventListener('deviceready', function() {
-  socket = new Socket();
-
-  if (localStorage.connected == null) {
-
-    socket.open(
-      " 192.168.9.113",
-      5000,
-      function() {
-        alert("connection Successful!!");
-      },
-      function(errorMessage) {
-        alert("connection Failed");
-      });
-    socket.onData = function(data) {
-      // invoked after new batch of data is received (typed array of bytes Uint8Array)
-      var data = new Uint8Array
-      names.push((Utf8ArrayToStr(data)));
-      alert(names);
-
-    };
-    socket.onError = function(errorMessage) {
-      alert(errorMessage);
-    };
-    socket.onClose = function(hasError) {
-      // invoked after connection close
-      localStorage.connected = null;
-    };
-  } else
-    alert("connection open");
+  console.log("Device Ready");
+  openConnection("192.168.1.105");
 
 });
 
+function openConnection(ip) {
+  socket = new Socket();
 
-function Utf8ArrayToStr(array) {
-  var out, i, len, c;
-  var char2, char3;
 
-  out = "";
-  len = array.length;
-  i = 0;
-  while (i < len) {
-    c = array[i++];
-    switch (c >> 4) {
-      case 0:
-      case 1:
-      case 2:
-      case 3:
-      case 4:
-      case 5:
-      case 6:
-      case 7:
-        // 0xxxxxxx
-        out += String.fromCharCode(c);
-        break;
-      case 12:
-      case 13:
-        // 110x xxxx   10xx xxxx
-        char2 = array[i++];
-        out += String.fromCharCode(((c & 0x1F) << 6) | (char2 & 0x3F));
-        break;
-      case 14:
-        // 1110 xxxx  10xx xxxx  10xx xxxx
-        char2 = array[i++];
-        char3 = array[i++];
-        out += String.fromCharCode(((c & 0x0F) << 12) |
-          ((char2 & 0x3F) << 6) |
-          ((char3 & 0x3F) << 0));
-        break;
+  socket.open(
+    ip,
+    5000,
+    function() {
+      alert("connection Successful!!");
+    },
+    function(errorMessage) {
+      alert("connection Failed");
+      changeIp();
+    });
+  socket.onData = function(data) {
+    // invoked after new batch of data is received (typed array of bytes Uint8Array)
+
+    alert(decodeUTF8(data));
+    read(decodeUTF8(data));
+  };
+  socket.onError = function(errorMessage) {
+    alert(errorMessage);
+  };
+  socket.onClose = function(hasError) {
+    // invoked after connection close
+  };
+}
+
+function changeIp() {
+  document.
+  getElementById("ipChange").style = "display:block";
+}
+
+
+function decodeUTF8(bytes) {
+  var i = 0,
+    s = '';
+  while (i < bytes.length) {
+    var c = bytes[i++];
+    if (c > 127) {
+      if (c > 191 && c < 224) {
+        if (i >= bytes.length)
+          throw new Error('UTF-8 decode: incomplete 2-byte sequence');
+        c = (c & 31) << 6 | bytes[i++] & 63;
+      } else if (c > 223 && c < 240) {
+        if (i + 1 >= bytes.length)
+          throw new Error('UTF-8 decode: incomplete 3-byte sequence');
+        c = (c & 15) << 12 | (bytes[i++] & 63) << 6 | bytes[i++] & 63;
+      } else if (c > 239 && c < 248) {
+        if (i + 2 >= bytes.length)
+          throw new Error('UTF-8 decode: incomplete 4-byte sequence');
+        c = (c & 7) << 18 | (bytes[i++] & 63) << 12 | (bytes[i++] & 63) << 6 | bytes[i++] & 63;
+      } else throw new Error('UTF-8 decode: unknown multibyte start 0x' + c.toString(16) + ' at index ' + (i - 1));
     }
+    if (c <= 0xffff) s += String.fromCharCode(c);
+    else if (c <= 0x10ffff) {
+      c -= 0x10000;
+      s += String.fromCharCode(c >> 10 | 0xd800)
+      s += String.fromCharCode(c & 0x3FF | 0xdc00)
+    } else throw new Error('UTF-8 decode: code point 0x' + c.toString(16) + ' exceeds UTF-16 reach');
   }
-
-  return out;
+  return s;
 }
 
 function go() {
@@ -94,6 +89,19 @@ function go() {
 
 }
 
+function read(data) {
+  data = data.replace(/"/g, "");
+  data = data.replace("[", "");
+
+  data = data.replace("]", "");
+
+  data = data.trim();
+  let arry = data.split(",");
+  for (let i = 0; i < arry.length; i++) {
+    names.push(arry[i]);
+  }
+  return names;
+}
 
 
 function send() {
