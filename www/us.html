@@ -1,3 +1,4 @@
+
 <!DOCTYPE html>
 <!--
     Licensed to the Apache Software Foundation (ASF) under one
@@ -6,7 +7,7 @@
     regarding copyright ownership.  The ASF licenses this file
     to you under the Apache License, Version 2.0 (the
     "License"); you may not use this file except in compliance
-    with the License.  You may obtain a copy of the LPicense at
+    with the License.  You may obtain a copy of the License at
 
     http://www.apache.org/licenses/LICENSE-2.0
 
@@ -35,31 +36,51 @@
   <link rel="stylesheet" type="text/css" href="css/index.css">
   <title>Hello World</title>
 </head>
+<script type="text/javascript" src="cordova.js"></script>
+<script type="text/javascript" src="js/admin.js"></script>
+<script src="..\plugins\cz.blocshop.socketsforcordova\socket.js">
+</script>
+<script type="text/javascript" src="js/index.js"></script>
+<h2 class="name">
+Application Creators/ NCAPS Associates
+</h2>
 
-<body>
+<heading>
+  <div class="profile" style="background-color: cyan;">
 
-  <select id="select" onchange="toggleScreen()">
-  <option value="People">People</option>
-  <option value="Stats">Stats</option>
-</select>
-  <div id="tab1" class="shown">
-    <ul id="list">
+    <body style="background-color: cyan; background-image:none;">
+    <img src="img/julien.jpg" alt="">
+    <p   > Julien Goolsby </p>
+    <p id='intro1'> Developed Backend and Framing of the App</p>
 
-    </ul>
   </div>
-  <div id="tab2" class="hidden">
-    <h1> Total Showers today: 5</h1>
-    <h1> Total Showers this Month: 10</h1>
+
+ <div class="profile" style="background-color: cyan;">
+    <img class = "pic1"src="img/braeden.jpg" alt ="">
+    <p id="name1"  > Braeden Denney </p>
+    <p id='intro1'>Project leader; Managed communications with Hope Faith and developed layout </p>
 
   </div>
+   <div class="profile" style="background-color: cyan;">
+    <img class = "pic1"src="img/james.jpg" alt ="">
+    <p id="name1" style="display:block;" >James Olson</p>
+    <p id='intro1'>Worked on Sign-In Format and helped with layout</p>
+
+  </div>
+  <div class="profile" style="background-color: cyan;">
+    <img class = "pic1"src="img/adia.jpg" alt ="">
+    <p id="name1" style="display:block;" > Adia Givens </p>
+    <p id='intro1'>Helped design layout and timer and worked on iOS</p>
+
+  </div>
+  <div class="profile" style="background-color: cyan;">
+    <img class = "pic1"src="img/cooper.jpg" alt ="">
+    <p id="name1"  > Cooper Hayes </p>
+    <p id='intro1'>Created the editor page and helped with UX of App</p> !-->
+  </div>
+
 
 
 </body>
-<script type="text/javascript" src="cordova.js"></script>
-
-<script src="..\plugins\cz.blocshop.socketsforcordova\socket.js">
-</script>
-<script src=" js/admin.js ">
-</script>
 
 </html>

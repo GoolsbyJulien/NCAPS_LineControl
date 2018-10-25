@@ -28,6 +28,8 @@ a {
 }
 
 body {
+  overflow: scroll;
+  ;
   -webkit-touch-callout: none;
   /* prevent callout to copy image, etc when tap to hold */
   -webkit-text-size-adjust: none;
@@ -46,7 +48,6 @@ body {
   margin: 0px;
   padding: 0px;
   width: 100%;
-  overflow: hidden;
 }
 
 input {
