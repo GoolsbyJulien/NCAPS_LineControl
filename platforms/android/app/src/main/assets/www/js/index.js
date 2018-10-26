@@ -1,9 +1,9 @@
 var socket;
 var names = [];
-const password = "hfm";
-
-localStorage.ip = "192.168.1.105";
-localStorage.setItem("names", "");
+localStorage.clear();
+if (JSON.parse(localStorage.getItem("names")) != null) {
+  names = JSON.parse(localStorage.getItem("names"))
+}
 
 function clearInputs() {
   document.getElementById("sign").value = "";
@@ -12,24 +12,22 @@ function clearInputs() {
 let connection = false;
 document.addEventListener('deviceready', function() {
   console.log("Device Ready");
-  openConnection(localStorage.ip);
+  openConnection("192.168.1.105");
 
 });
 
 function openConnection(ip) {
   socket = new Socket();
-  localStorage.ip = ip;
+
 
   socket.open(
     ip,
     5000,
     function() {
       alert("connection Successful!!");
-      socket.write("*request* id0")
-
     },
     function(errorMessage) {
-      alert("connection Failed: " + errorMessage);
+      alert("connection Failed");
       changeIp();
     });
   socket.onData = function(data) {
@@ -49,7 +47,6 @@ function openConnection(ip) {
 function changeIp() {
   document.
   getElementById("ipChange").style = "display:block";
-
 }
 
 
@@ -86,7 +83,7 @@ function decodeUTF8(bytes) {
 function go() {
   //send to other app
   localStorage.setItem("names", JSON.stringify(names));
-  socket.shutdownWrite();
+
   window.location = "admin.html";
   //localStorage.name.push(document.getElementById('sign').value);
 

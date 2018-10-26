@@ -1,6 +1,4 @@
 var people = [];
-var socket;
-let asked = 0;
 class person {
 
   /*constructor(name) {
@@ -11,90 +9,23 @@ class person {
   }*/
   constructor(lastname) {
     this.name = lastname;
-    this.id = "undefined";
-
-    request("id" + people.length);
+    this.id = (420 + Math.random() * 4000) +
+      lastname;
     this.rank = people.length;
   }
 }
-document.addEventListener('deviceready', function() {
 
-  openConnection(localStorage.ip);
+add("Person 1");
+add("Person 2");
+add("Person 3");
+let passedName = JSON.parse(localStorage.getItem("names"));
+
+for (let i = 0; i < passedName.length; i++)
+  add(passedName[i]);
 
 
 
 
-
-});
-
-function request(a) {
-  var dataString = "*request*" + a;
-  //alert("data string " + dataString);
-  var data = new Uint8Array(dataString.length);
-  for (var i = 0; i < data.length; i++) {
-    data[i] = dataString.charCodeAt(i);
-  }
-  //socket.write(data);
-}
-
-//add("Person 1");
-//add("Person 2");
-//add("Person 3");
-
-//10 min
-// 5 mins
-function openConnection(ip) {
-  socket = new Socket();
-  localStorage.ip = ip;
-  socket.open(
-    ip,
-    5000,
-    function() {
-      alert("connection Successful!!");
-      let passedName = JSON.parse(localStorage.getItem("names"));
-
-      for (let i = 0; i < passedName.length; i++)
-        add(passedName[i]);
-    },
-    function(errorMessage) {
-      alert("connection Failed: " + errorMessage);
-      var dataString = "test";
-      //alert("data string " + dataString);
-      var data = new Uint8Array(dataString.length);
-      for (var i = 0; i < data.length; i++) {
-        data[i] = dataString.charCodeAt(i);
-      }
-
-    });
-  socket.onData = function(data) {
-    // invoked after new batch of data is received (typed array of bytes Uint8Array)
-    alert("id : " + decodeUTF8(data));
-    /*  if (decodeUTF8(data).indexOf("*id*") > -1) {
-        people[asked].id = decodeUTF8(data).split("*id*")[1];
-        asked++;
-      } else if (decodeUTF8(data).indexOf("*timer*") > -1) {
-        let s = decodeUTF8(data).split(" ");
-        people[getIndex(s[1])].min = parseInt(s[2]);
-        people[getIndex(s[1])].min = parseInt(s[3]);
-
-      }*/
-    alert(decodeUTF8(data));
-  };
-  socket.onError = function(errorMessage) {
-    alert(errorMessage);
-  };
-  socket.onClose = function(hasError) {
-    // invoked after connection close
-  };
-
-}
-
-function getIndex(id) {
-  for (let i = 0; i < people.length; i++) {
-    if (id.indexOf(people[i].id))
-      return i;
-  }
-}
 
 function getSectionId(element) {
   return element.split("_")[0];
@@ -113,10 +44,8 @@ function countdown(element, min, sec) {
   if (people[inq].interval == null) {
 
     let interval = setInterval(function() {
-      request("timer");
-      min = people[inq].min;
 
-      sec = people[inq].sec;
+      sec--;
       if (sec <= 0) {
         if (min == 5) {
 
@@ -191,8 +120,6 @@ function swap(v1, v2) {
 }
 
 function start(name) {
-  request("start" + name);
-
   countdown(name + "_timer", 20, 0)
 }
 
@@ -232,7 +159,6 @@ function add(name) {
     name = name.replace(/_/g, "");
   name.trim();
   let p = new person(name);
-  //alert(p.id);
   people.push(p);
   let id = p.id;
 
