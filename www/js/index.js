@@ -111,7 +111,10 @@ function send() {
     return;
   }
   if (!String(document.getElementById('signLastname').value)) {
-
+    if (document.getElementById('sign').value == "HFM" || document.getElementById('sign').value == "hfm") {
+      go();
+      return;
+    }
     alert("Please enter Lastname");
     return;
   }
